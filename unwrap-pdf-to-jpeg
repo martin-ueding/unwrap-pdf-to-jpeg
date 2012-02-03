@@ -1,0 +1,65 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2012 Martin Ueding <dev@martin-ueding.de>
+
+import glob
+import optparse
+import os
+import shutil
+import subprocess
+import uuid
+
+def main():
+    options, args = _parse_args()
+
+    for infile in args:
+        ident = str(uuid.uuid4())
+
+        status = subprocess.call(["pdfimages", "-j", infile, ident])
+        print "Status", status
+        
+        if status != 0:
+            continue
+
+        files = sorted(glob.glob(ident+"-*"))
+        print "Files", files
+        count = len(files)
+        print "Count", count
+        digits = len(str(count))
+        print "Digits", digits
+
+        success = True
+
+        for i, f in zip(xrange(1, count+1), files):
+            if not f.endswith(".jpg"):
+                print "No JPEG generated, deleting ..."
+                os.remove(f)
+                success = False
+            else:
+                formatter = "%0"+str(digits)+"d"
+                new_name = infile[:-4]+"+"+(formatter % i)+".jpg"
+                print "->", f, new_name
+                os.rename(f, new_name)
+
+        if success:
+            trashfile = os.path.expanduser("~/.local/share/Trash/files/")
+            print "Trashfile", trashfile
+            shutil.move(infile, trashfile)
+
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    @return: Tuple with options and (positional) arguments.
+    @rtype: tuple
+    """
+    parser = optparse.OptionParser(usage="", description="")
+    #parser.add_option("", dest="", type="", default=, help=)
+
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+	main()
