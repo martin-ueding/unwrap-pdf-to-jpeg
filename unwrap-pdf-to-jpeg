@@ -3,6 +3,11 @@
 
 # Copyright (c) 2012 Martin Ueding <dev@martin-ueding.de>
 
+"""
+Converts the images in a PDF into multiple JPEG files, numbered with a C{+001}
+style suffix.
+"""
+
 import glob
 import optparse
 import os
