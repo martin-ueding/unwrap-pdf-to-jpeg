@@ -6,7 +6,6 @@
 """
 unwrap PDF into JPEG files
 ==========================
-
 This converts a PDF file into the JPEG files it was made out of initially and
 numbers them with a ``+1``, ``+2``, ... scheme.
 
@@ -15,7 +14,6 @@ its numbering scheme.
 
 usage
 -----
-
 Call with multiple files::
 
     unwrap-pdf-to-jpeg file.pdf other.pdf third.pdf
