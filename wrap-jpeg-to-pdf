@@ -3,6 +3,10 @@
 
 # Copyright (c) 2012 Martin Ueding <dev@martin-ueding.de>
 
+"""
+Goes through the directory structure, searches for multiple JPEG images which are named with the ``+1``, ``+2``, … scheme and uses ``convert`` to create a PDF with all the images in correct order.
+"""
+
 import argparse
 import os.path
 import re
