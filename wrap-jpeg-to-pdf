@@ -4,11 +4,45 @@
 # Copyright (c) 2012 Martin Ueding <dev@martin-ueding.de>
 
 import argparse
+import os.path
+import re
+import subprocess
 
 __docformat__ = "restructuredtext en"
 
 def main():
     options = _parse_args()
+
+    plus_pattern = re.compile(r"([^+]+)(\+\d+)(\.jpg)")
+
+    for root, dirs, files in os.walk("."):
+        jpegs = {}
+        for file in files:
+            m = plus_pattern.match(file)
+            if m is None:
+                continue
+            
+            prefix = (root, m.group(1))
+            suffix = (m.group(2), m.group(3))
+            if not prefix in jpegs:
+                jpegs[prefix] = []
+
+            jpegs[prefix].append(suffix)
+
+        for key in jpegs:
+            jpegs[key].sort()
+
+        if len(jpegs) > 0:
+            print jpegs
+            for prefix in jpegs:
+                images = []
+                for suffix in jpegs[prefix]:
+                    images.append(os.path.join(prefix[0], prefix[1]+suffix[0]+suffix[1]))
+
+                print images
+                pdf_file = os.path.join(prefix[0], prefix[1]+".pdf")
+                print pdf_file
+        
 
 
 def _parse_args():
