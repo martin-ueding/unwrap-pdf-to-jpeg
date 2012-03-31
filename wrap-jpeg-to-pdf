@@ -12,9 +12,17 @@ PDF with all the images in correct order.
 import argparse
 import os.path
 import re
+import shutil
 import subprocess
 
 __docformat__ = "restructuredtext en"
+
+srcdir = os.path.expanduser("~/PDF_Source")
+
+def create_srcdir():
+    if not os.path.isdir(srcdir):
+        os.mkdir(srcdir)
+
 
 def main():
     options = _parse_args()
@@ -49,6 +57,11 @@ def main():
                 call = ["convert"]+images+[pdf_file]
                 print ' '.join(call)
                 subprocess.check_call(call)
+
+                create_srcdir()
+
+                for image in images:
+                    shutil.move(image, os.path.join(srcdir, os.path.basename(image)))
 
 
 def _parse_args():
