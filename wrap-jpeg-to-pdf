@@ -42,6 +42,10 @@ def main():
                 print images
                 pdf_file = os.path.join(prefix[0], prefix[1]+".pdf")
                 print pdf_file
+
+                call = ["convert"]+images+[pdf_file]
+                print ' '.join(call)
+                subprocess.check_call(call)
         
 
 
