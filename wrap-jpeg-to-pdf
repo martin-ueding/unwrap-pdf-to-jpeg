@@ -39,20 +39,16 @@ def main():
             jpegs[key].sort()
 
         if len(jpegs) > 0:
-            print jpegs
             for prefix in jpegs:
                 images = []
                 for suffix in jpegs[prefix]:
                     images.append(os.path.join(prefix[0], prefix[1]+suffix[0]+suffix[1]))
 
-                print images
                 pdf_file = os.path.join(prefix[0], prefix[1]+".pdf")
-                print pdf_file
 
                 call = ["convert"]+images+[pdf_file]
                 print ' '.join(call)
                 subprocess.check_call(call)
-        
 
 
 def _parse_args():
