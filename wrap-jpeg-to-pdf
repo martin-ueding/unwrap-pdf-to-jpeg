@@ -54,7 +54,6 @@ def create_srcdir():
     if not os.path.isdir(srcdir):
         os.mkdir(srcdir)
 
-
 def main():
     options = _parse_args()
 
@@ -94,7 +93,6 @@ def main():
                 for image in images:
                     shutil.move(image, os.path.join(srcdir, os.path.basename(image)))
 
-
 def _parse_args():
     """
     Parses the command line arguments.
@@ -109,7 +107,6 @@ def _parse_args():
     #parser.add_argument('--version', action='version', version='<the version>')
 
     return parser.parse_args()
-
 
 if __name__ == "__main__":
     main()

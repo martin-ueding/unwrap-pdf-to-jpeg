@@ -113,7 +113,6 @@ def main():
             print "Trashfile", trashfile
             shutil.move(infile, trashfile)
 
-
 def _parse_args():
     """
     Parses the command line arguments.
@@ -124,7 +123,6 @@ def _parse_args():
     parser = optparse.OptionParser(usage="", description="")
 
     return parser.parse_args()
-
 
 if __name__ == "__main__":
     main()
