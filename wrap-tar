@@ -42,11 +42,11 @@ def main():
                 tar_file = os.path.join(prefix[1]+".tar.gz")
 
                 call = ["tar", "-C", prefix[0], "-czf", tar_file]+images
-                print ' '.join(call)
+                print(' '.join(call))
                 try:
                     subprocess.check_call(call)
                 except subprocess.CalledProcessError as e:
-                    print e
+                    print(e)
                 else:
                     if os.path.isfile(os.path.join(prefix[0], tar_file)):
                         for j in images:
