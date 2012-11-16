@@ -39,7 +39,7 @@ def main():
                 for suffix in jpegs[prefix]:
                     images.append(os.path.join(prefix[1]+suffix))
 
-                tar_file = os.path.join(prefix[1]+".tar.gz")
+                tar_file = os.path.join(prefix[0], prefix[1]+".tar.gz")
 
                 call = ["tar", "-C", prefix[0], "-czf", tar_file]+images
                 print(' '.join(call))
@@ -48,9 +48,13 @@ def main():
                 except subprocess.CalledProcessError as e:
                     print(e)
                 else:
-                    if os.path.isfile(os.path.join(prefix[0], tar_file)):
+                    if os.path.isfile(tar_file):
                         for j in images:
+                            print("Removing", j)
                             os.remove(os.path.join(prefix[0], j))
+                    else:
+                        print("There is no", tar_file)
+                        sys.exit(1)
 
 def _parse_args():
     """
