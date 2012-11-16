@@ -3,6 +3,11 @@
 
 # Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
 
+"""
+Wraps the groups of pictures into tar archives so that there are not so many
+files laying around.
+"""
+
 import argparse
 import os
 import re
