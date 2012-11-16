@@ -1,0 +1,71 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+
+__docformat__ = "restructuredtext en"
+
+def main():
+    options = _parse_args()
+
+    plus_pattern = re.compile(r"([^+]+)(\+\d+.+)")
+
+    for root, dirs, files in os.walk(os.path.expanduser("~/PDF_Source")):
+        jpegs = {}
+        for file in files:
+            m = plus_pattern.match(file)
+            if m is None:
+                continue
+
+            prefix = (root, m.group(1))
+            suffix = m.group(2)
+            if not prefix in jpegs:
+                jpegs[prefix] = []
+
+            jpegs[prefix].append(suffix)
+
+        for key in jpegs:
+            jpegs[key].sort()
+
+        if len(jpegs) > 0:
+            for prefix in jpegs:
+                images = []
+                for suffix in jpegs[prefix]:
+                    images.append(os.path.join(prefix[1]+suffix))
+
+                tar_file = os.path.join(prefix[1]+".tar.gz")
+
+                call = ["tar", "-C", prefix[0], "-czf", tar_file]+images
+                print ' '.join(call)
+                try:
+                    subprocess.check_call(call)
+                except subprocess.CalledProcessError as e:
+                    print e
+                else:
+                    if os.path.isfile(os.path.join(prefix[0], tar_file)):
+                        for j in images:
+                            os.remove(os.path.join(prefix[0], j))
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    :return: Namespace with arguments.
+    :rtype: Namespace
+    """
+    parser = argparse.ArgumentParser(description="")
+    #parser.add_argument("args", metavar="N", type=str, nargs="*", help="Positional arguments.")
+    #parser.add_argument("", dest="", type="", default=, help=)
+    #parser.add_argument("--version", action="version", version="<the version>")
+
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    main()
