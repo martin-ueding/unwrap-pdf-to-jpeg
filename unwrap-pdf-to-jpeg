@@ -83,34 +83,34 @@ def main():
         ident = str(uuid.uuid4())
 
         status = subprocess.call(["pdfimages", "-j", infile, ident])
-        print "Status", status
+        print("Status", status)
 
         if status != 0:
             continue
 
         files = sorted(glob.glob(ident+"-*"))
-        print "Files", files
+        print("Files", files)
         count = len(files)
-        print "Count", count
+        print("Count", count)
         digits = len(str(count))
-        print "Digits", digits
+        print("Digits", digits)
 
         success = True
 
-        for i, f in zip(xrange(1, count+1), files):
+        for i, f in zip(range(1, count+1), files):
             if not f.endswith(".jpg"):
-                print "No JPEG generated, deleting ..."
+                print("No JPEG generated, deleting ...")
                 os.remove(f)
                 success = False
             else:
                 formatter = "%0"+str(digits)+"d"
                 new_name = infile[:-4]+"+"+(formatter % i)+".jpg"
-                print "->", f, new_name
+                print("->", f, new_name)
                 os.rename(f, new_name)
 
         if success:
             trashfile = os.path.expanduser("~/.local/share/Trash/files/")
-            print "Trashfile", trashfile
+            print("Trashfile", trashfile)
             shutil.move(infile, trashfile)
 
 def _parse_args():

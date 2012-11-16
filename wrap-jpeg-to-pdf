@@ -85,7 +85,7 @@ def main():
                 pdf_file = os.path.join(prefix[0], prefix[1]+".pdf")
 
                 call = ["convert"]+images+[pdf_file]
-                print ' '.join(call)
+                print(' '.join(call))
                 subprocess.check_call(call)
 
                 create_srcdir()
