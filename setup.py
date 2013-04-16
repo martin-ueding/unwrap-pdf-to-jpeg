@@ -1,5 +1,7 @@
 #!/usr/bin/python
-# Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+# -*- coding: utf-8 -*-
+
+# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 from distutils.core import setup
 
