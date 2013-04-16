@@ -11,6 +11,11 @@ setup(
     description = "Converts JPEG files to PDF and back",
     license = "GPL2+",
     name = "wrap-jpeg-to-pdf",
-    scripts = ["wrap-jpeg-to-pdf", "unwrap-pdf-to-jpeg"],
+    scripts = [
+        "move-pdf-source",
+        "unwrap-pdf-to-jpeg",
+        "wrap-jpeg-to-pdf",
+        "wrap-tar",
+    ],
     version = "1.0",
 )
