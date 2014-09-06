@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 
 """
 Goes through the directory structure, searches for multiple JPEG images which
@@ -57,10 +57,15 @@ def main():
                 print(' '.join(call))
                 subprocess.check_call(call)
 
-                create_srcdir()
+                if options.source:
+                    create_srcdir()
 
-                for image in images:
-                    shutil.move(image, os.path.join(srcdir, os.path.basename(image)))
+                    for image in images:
+                        shutil.move(image, os.path.join(srcdir, os.path.basename(image)))
+
+                else:
+                    for image in images:
+                        os.unlink(image)
 
 def _parse_args():
     """
@@ -72,8 +77,7 @@ def _parse_args():
     parser = argparse.ArgumentParser(usage="", description="")
     parser.add_argument('args', metavar='N', type=str, nargs='*',
                    help='Positional arguments.')
-    #parser.add_argument("", dest="", type="", default=, help=)
-    #parser.add_argument('--version', action='version', version='<the version>')
+    parser.add_argument("-s", dest="source", action='store_true', help='Move original files to {}'.format(srcdir))
 
     return parser.parse_args()
 
