@@ -1,8 +1,13 @@
-.. Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2013-2015 Martin Ueding <dev@martin-ueding.de>
 
 #########
 Changelog
 #########
+
+v2.1.0
+    Released: 2015-05-15
+
+    - Remove makefile
 
 v2.0
     Released: 2014-09-06
